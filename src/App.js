@@ -1,14 +1,22 @@
 import React from 'react'
 import './App.css'
 import Header from './Components/Header'
-import { Container } from '@material-ui/core';
+import Task from './Components/Tasks'
+import { taskData, addTask } from './taskData'
 
 function App () {
+  console.log(taskData)
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
-      <Container
-        maxWidth = 'sm'></Container>
+      {taskData.map((task) => {
+        return (
+          <Task
+            maxWidth = 'sm'
+            text = {task.text}
+            key = {task.index}
+          />)
+      })}
     </div>
   )
 }
