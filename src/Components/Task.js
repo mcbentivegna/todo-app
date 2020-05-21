@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import AddTaskForm from './AddTaskForm'
 
 const styles = {
   root: {
@@ -16,23 +17,23 @@ const styles = {
 }
 
 const Task = (props) => {
-  const { classes, maxWidth, text, key } = props
-
+  const { classes, text, addTask, handleSubmit } = props
   return (
     <Container
       className={ classes.root }
-      maxWidth= { maxWidth }
-      key = { key }>
+      maxWidth= 'sm'
+    >
       <p>{text}</p>
+      <AddTaskForm addTask={addTask} handleSubmit = {handleSubmit}></AddTaskForm>
     </Container>
   )
 }
 
 Task.propTypes = {
   classes: PropTypes.object.isRequired,
-  maxWidth: PropTypes.string,
   text: PropTypes.string,
-  key: PropTypes.number
+  addTask: PropTypes.bool,
+  handleSubmit: PropTypes.func
 }
 
 export default withStyles(styles)(Task)

@@ -1,5 +1,3 @@
-import array from 'lodash/array'
-
 let taskData = [
   {
     text:'Pick up 1 gallon milk.',
@@ -27,17 +25,17 @@ let taskData = [
   }
 ]
 
-const minPriority = () => taskData.length - 1
+const minPriority = () => taskData.length
 const maxId = () => taskData.reduce((acc, cur) => Math.max(acc, cur.index), 0)
 
-const addTask = (text) => {
+const newTask = (text) => {
   const task = {
-    text,
+    text: text,
     priority: minPriority() + 1,
     status: 'new',
     index: maxId() + 1
   }
-  taskData.push(task)
+  return task
 }
 
-export { taskData, addTask, maxId }
+export { taskData, newTask, maxId }
