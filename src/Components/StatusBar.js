@@ -42,7 +42,7 @@ const StatusBar = (props) => {
         />
         <Chip
           onClick= {() => changeTaskStatus(index, 'inProgress')}
-          className={ status === 'inProgress' ? `${classes.notSelected} ${classes.inProgress}` : `${classes.notSelected}` } 
+          className={ status === 'inProgress' ? `${classes.notSelected} ${classes.inProgress}` : `${classes.notSelected}` }
           size="small"
           label="In Progress"
         />
@@ -57,6 +57,14 @@ const StatusBar = (props) => {
   } else {
     return (null)
   }
+}
+
+StatusBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  addTask: PropTypes.bool,
+  status: PropTypes.string,
+  index: PropTypes.number
 }
 
 export default withStyles(styles)(StatusBar)

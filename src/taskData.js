@@ -31,15 +31,15 @@ const taskData = [
   }
 ]
 
-const minPriority = () => taskData.length
-const maxId = () => taskData.reduce((acc, cur) => Math.max(acc, cur.index), 0)
+const minPriority = (taskData) => taskData.length
+const maxId = (taskData) => taskData.reduce((acc, cur) => Math.max(acc, cur.index), 0)
 
-const newTask = (text) => {
+const newTask = (taskData, text) => {
   const task = {
     text: text,
-    priority: minPriority() + 1,
+    priority: minPriority(taskData) + 1,
     status: 'new',
-    index: maxId() + 1
+    index: maxId(taskData) + 1
   }
   return task
 }

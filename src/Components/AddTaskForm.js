@@ -34,8 +34,8 @@ class AddTaskForm extends React.Component {
             inputRef={ ref => this.input = ref }
           />
         </form>
-      ) }
-    else {
+      )
+    } else {
       return (null)
     }
   }
@@ -43,7 +43,7 @@ class AddTaskForm extends React.Component {
 
 AddTaskForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
   addTask: PropTypes.bool
 }
 

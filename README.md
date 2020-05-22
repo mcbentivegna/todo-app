@@ -1,1 +1,1 @@
-#This is a todo list app that I created to practice React.
+#This is a todo list app that I created to practice using React with gulp and Material-UI.
