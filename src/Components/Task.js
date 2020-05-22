@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import AddTaskForm from './AddTaskForm'
+import StatusBar from './StatusBar'
 
 const styles = {
   root: {
@@ -11,21 +12,27 @@ const styles = {
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px #a6b1e1',
     color: '#424874',
-    height: 48,
-    padding: '0 30px'
+    height: 72,
+    padding: '0 30px',
+    'text-align': 'left',
+    position: 'relative'
   }
 }
 
 const Task = (props) => {
-  const { classes, text, addTask, handleSubmit } = props
+  const { classes, text, status, addTask, handleSubmit, changeTaskStatus } = props
   return (
-    <Container
-      className={ classes.root }
-      maxWidth= 'sm'
-    >
-      <p>{text}</p>
-      <AddTaskForm addTask={addTask} handleSubmit = {handleSubmit}></AddTaskForm>
-    </Container>
+    <div>
+      <Container
+        className={ classes.root }
+        maxWidth= 'sm'
+      >
+        {text}
+        <AddTaskForm addTask={addTask} handleSubmit = {handleSubmit}></AddTaskForm>
+        <StatusBar addTask ={addTask} status= {status} changeTaskStatus = {changeTaskStatus} />
+      </Container>
+      <p></p>
+    </div>
   )
 }
 

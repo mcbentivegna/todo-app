@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/'
 const styles = () => ({
   root: {
     '& .MuiTextField-root': {
-      width: '90%',
+      width: '100%',
       display: 'flex',
       flexWrap: 'wrap'
     }

@@ -10,7 +10,6 @@ class App extends React.Component {
     taskData: taskData
   };
 
-
   handleSubmit = (text) => {
     this.setState( prevState => {
       return {
@@ -22,8 +21,25 @@ class App extends React.Component {
     })
   }
 
+  changeTaskStatus = (index, newState) => {
+
+    const arrayIndex= taskData.findIndex(obj => obj.index == index);
+    let newTaskData = taskData[arrayIndex].state = newState
+
+    this.setState ( prevState => {
+      return {
+        taskData: newTaskData
+      }
+    })
+  }
+
   render () {
-    console.log(this.state)
+    const arrayIndex = taskData.findIndex(obj => obj.index == 3)
+    console.log(arrayIndex)
+    console.log(taskData[arrayIndex])
+    // This won't be defined the first time things load, so you get odd behavior...
+    //taskData[arrayIndex].index = 45
+    //console.log(taskData[arrayIndex].index)
     return (
       <div className='App'>
         <Header />
@@ -32,6 +48,8 @@ class App extends React.Component {
             <Task
               text = {task.text}
               key = {task.index}
+              status = {task.status}
+              changeTaskStatus = {this.changeTaskStatus}
             />)
         })}
         <Task

@@ -1,6 +1,6 @@
-let taskData = [
+const taskData = [
   {
-    text:'Pick up 1 gallon milk.',
+    text: 'Pick up 1 gallon milk.',
     priority: 1,
     status: 'new',
     index: 1
@@ -8,7 +8,7 @@ let taskData = [
   {
     text: 'Schedule dentist appointments for next month.',
     priority: 2,
-    status: 'in progress',
+    status: 'inProgress',
     index: 2
   },
   {
@@ -22,6 +22,12 @@ let taskData = [
     priority: 4,
     status: 'done',
     index: 4
+  },
+  {
+    text: 'Follow up with electrician.',
+    priority: 5,
+    status: 'done',
+    index: 5
   }
 ]
 
