@@ -22,12 +22,22 @@ class App extends React.Component {
   }
 
   changeTaskStatus = (index, newState) => {
-
-    const arrayIndex= taskData.findIndex(obj => obj.index == index);
-    let newTaskData = taskData[arrayIndex].state = newState
-
     this.setState ( prevState => {
+      const arrayIndex= prevState.taskData.findIndex(obj => obj.index == index);
+      let newTaskData = prevState.taskData
+      newTaskData[arrayIndex].status = newState
+
       return {
+        taskData: newTaskData
+      }
+    })
+  }
+
+  deleteTask = (index) => {  
+    this.setState ( prevState => {
+      let newTaskData = prevState.taskData
+      newTaskData = newTaskData.filter( (task) => task.index != index )
+    return {
         taskData: newTaskData
       }
     })
@@ -35,8 +45,6 @@ class App extends React.Component {
 
   render () {
     const arrayIndex = taskData.findIndex(obj => obj.index == 3)
-    console.log(arrayIndex)
-    console.log(taskData[arrayIndex])
     // This won't be defined the first time things load, so you get odd behavior...
     //taskData[arrayIndex].index = 45
     //console.log(taskData[arrayIndex].index)
@@ -49,7 +57,9 @@ class App extends React.Component {
               text = {task.text}
               key = {task.index}
               status = {task.status}
+              index = {task.index}
               changeTaskStatus = {this.changeTaskStatus}
+              deleteTask = {this.deleteTask}
             />)
         })}
         <Task

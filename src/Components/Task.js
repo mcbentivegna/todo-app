@@ -16,20 +16,29 @@ const styles = {
     padding: '0 30px',
     'text-align': 'left',
     position: 'relative'
+  },
+  close: {
+    position: 'absolute',
+    right: '5px',
+    top: '5px'
   }
 }
 
 const Task = (props) => {
-  const { classes, text, status, addTask, handleSubmit, changeTaskStatus } = props
+  const { classes, text, status, index, addTask, handleSubmit, changeTaskStatus, deleteTask } = props
+
   return (
     <div>
       <Container
         className={ classes.root }
         maxWidth= 'sm'
       >
+        <div 
+          className = {classes.close}
+          onClick = {() => deleteTask(index)}>X</div>
         {text}
         <AddTaskForm addTask={addTask} handleSubmit = {handleSubmit}></AddTaskForm>
-        <StatusBar addTask ={addTask} status= {status} changeTaskStatus = {changeTaskStatus} />
+        <StatusBar addTask ={addTask} status= {status} index = {index} changeTaskStatus = {changeTaskStatus} />
       </Container>
       <p></p>
     </div>
@@ -39,8 +48,11 @@ const Task = (props) => {
 Task.propTypes = {
   classes: PropTypes.object.isRequired,
   text: PropTypes.string,
-  addTask: PropTypes.bool,
-  handleSubmit: PropTypes.func
+  addTask: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func,
+  index: PropTypes.number.isRequired,
+  changeTaskStatus: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Task)

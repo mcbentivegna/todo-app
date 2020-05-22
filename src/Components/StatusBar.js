@@ -29,24 +29,29 @@ const styles = {
 }
 
 const StatusBar = (props) => {
-  const { classes, addTask, status, changeTaskStatus } = props
-
-  const handleChangeStatus = (e) => {
-    e.preventDefault()
-    changeTaskStatus(this.input.value)
-    e.currentTarget.reset()
-  }
+  const { classes, addTask, status, index, changeTaskStatus } = props
 
   if (!addTask) {
     return (
       <div className = {classes.root}>
         <Chip
-          className={ status === 'done' ? `${classes.notSelected} ${classes.done}` : `${classes.notSelected}` }
+          onClick= {() => changeTaskStatus(index, 'done')}
+          className={ status === 'done' ? `${classes.notSelected} ${classes.done} done` : `${classes.notSelected}` }
           size="small"
           label="Done"
         />
-        <Chip className={ status === 'inProgress' ? `${classes.notSelected} ${classes.inProgress}` : `${classes.notSelected}` } size="small" label="In Progress" />
-        <Chip className={ status === 'new' ? `${classes.notSelected} ${classes.new}` : `${classes.notSelected}`} size="small" label="New" />
+        <Chip
+          onClick= {() => changeTaskStatus(index, 'inProgress')}
+          className={ status === 'inProgress' ? `${classes.notSelected} ${classes.inProgress}` : `${classes.notSelected}` } 
+          size="small"
+          label="In Progress"
+        />
+        <Chip
+          onClick= {() => changeTaskStatus(index, 'new')}
+          className={ status === 'new' ? `${classes.notSelected} ${classes.new}` : `${classes.notSelected}`}
+          size="small"
+          label="New"
+        />
       </div>
     )
   } else {

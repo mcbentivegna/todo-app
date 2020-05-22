@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f4eeff; /* https://colorhunt.co/palette/174976 */
   color: #424874;
+  font-size: 18px
 }
 
 code {
