@@ -32,6 +32,7 @@ class AddTaskForm extends React.Component {
             id = "add-task-form"
             label = "Add Task"
             inputRef={ ref => this.input = ref }
+            inputProps = {{maxLength: '140'}}
           />
         </form>
       )

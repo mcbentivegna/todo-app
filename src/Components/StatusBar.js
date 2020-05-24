@@ -39,18 +39,21 @@ const StatusBar = (props) => {
           className={ status === 'done' ? `${classes.notSelected} ${classes.done} done` : `${classes.notSelected}` }
           size="small"
           label="Done"
+          clickable = {false}
         />
         <Chip
           onClick= {() => changeTaskStatus(index, 'inProgress')}
           className={ status === 'inProgress' ? `${classes.notSelected} ${classes.inProgress}` : `${classes.notSelected}` }
           size="small"
           label="In Progress"
+          clickable = {false}
         />
         <Chip
           onClick= {() => changeTaskStatus(index, 'new')}
           className={ status === 'new' ? `${classes.notSelected} ${classes.new}` : `${classes.notSelected}`}
           size="small"
           label="New"
+          clickable = {false}
         />
       </div>
     )
