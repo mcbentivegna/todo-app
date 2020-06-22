@@ -29,9 +29,9 @@ const styles = {
 }
 
 const StatusBar = (props) => {
-  const { classes, addTask, status, index, changeTaskStatus } = props
+  const { classes, editing, status, index, changeTaskStatus } = props
 
-  if (!addTask) {
+  if (!editing) {
     return (
       <div className = {classes.root}>
         <Chip

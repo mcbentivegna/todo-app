@@ -21,9 +21,29 @@ class App extends React.Component {
     })
   }
 
+  
+  findTaskIndex = (prevState, index) => {
+    return prevState.taskData.findIndex(obj => obj.index === index);
+
+  } 
+
+  updateTaskText = (index, newText) =>{
+    this.setState ( prevState => {
+      const arrayIndex = this.findTaskIndex(prevState, index)
+      let newTaskData = prevState.taskData
+      newTaskData[arrayIndex].text = newText
+
+      return {
+        taskData: newTaskData
+      }
+    })
+  }
+
+
+
   changeTaskStatus = (index, newState) => {
     this.setState ( prevState => {
-      const arrayIndex= prevState.taskData.findIndex(obj => obj.index === index);
+      const arrayIndex = this.findTaskIndex(prevState, index)
       let newTaskData = prevState.taskData
       newTaskData[arrayIndex].status = newState
 
@@ -56,11 +76,13 @@ class App extends React.Component {
               index = {task.index}
               changeTaskStatus = {this.changeTaskStatus}
               deleteTask = {this.deleteTask}
+              newTask = {false}
+              updateTaskText = {this.updateTaskText}
             />)
         })}
         <Task
           key = {'add-task'}
-          addTask = {true}
+          newTask = {true}
           handleSubmit = {this.handleSubmit}
            />
       </div>

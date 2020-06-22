@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { Close } from '@material-ui/icons'
+import { Close, Edit } from '@material-ui/icons'
 import AddTaskForm from './AddTaskForm'
 import StatusBar from './StatusBar'
 
@@ -25,29 +25,71 @@ const styles = {
   },
   done: {
     'text-decoration': 'line-through'
+  },
+  edit: {
+    color: '#a6b1e1',
+    'padding-inline-start': '10px'
   }
 }
 
-const Task = (props) => {
-  const { classes, text, status, index, addTask, handleSubmit, changeTaskStatus, deleteTask } = props
+class Task extends React.Component {
 
-  return (
-    <div>
-      <Container
-        className={ status === 'done' ? `${classes.root} ${classes.done}` : classes.root }
-        maxWidth= 'sm'
-      >
-        <Close
-          className = {classes.close}
-          onClick = {() => deleteTask(index)}
-        />
-        {text}
-        <AddTaskForm addTask={addTask} handleSubmit = {handleSubmit}></AddTaskForm>
-        <StatusBar addTask ={addTask} status= {status} index = {index} changeTaskStatus = {changeTaskStatus} />
-      </Container>
-      <p></p>
-    </div>
-  )
+  state = {
+    editing: false
+  }
+
+  toggleState = () => {
+    this.setState ( prevState => {
+      return {
+        editing: !prevState.editing
+      }
+    })
+  }
+
+  componentWillMount() {
+    if (this.props.newTask){
+      this.toggleState()
+    }
+  }
+
+  render() {
+    const {
+      classes,
+      text,
+      status,
+      index,
+      handleSubmit,
+      changeTaskStatus,
+      updateTaskText,
+      newTask,
+      deleteTask
+    } = this.props
+
+    return (
+      <div>
+        <Container
+          className={ status === 'done' ? `${classes.root} ${classes.done}` : classes.root }
+          maxWidth= 'sm'
+        >
+          <Close
+            className = {classes.close}
+            onClick = {() => deleteTask(index)}
+          />
+          {this.state.editing ? null : text}
+          {this.state.editing ? null : <Edit className = {classes.edit} onClick = {() => this.toggleState()}/> }
+          <AddTaskForm 
+            editing={this.state.editing} 
+            handleSubmit = {handleSubmit}
+            updateTaskText = {updateTaskText}
+            toggleState = {this.toggleState}
+            index = {index}
+            text = {text}></AddTaskForm>
+          <StatusBar editing= {this.state.editing} status= {status} index = {index} changeTaskStatus = {changeTaskStatus} />
+        </Container>
+        <p></p>
+      </div>
+    )
+  }
 }
 
 Task.propTypes = {
@@ -58,6 +100,7 @@ Task.propTypes = {
   handleSubmit: PropTypes.func,
   index: PropTypes.number,
   changeTaskStatus: PropTypes.func,
+  updateTaskText: PropTypes.func,
   deleteTask: PropTypes.func
 }
 

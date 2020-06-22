@@ -15,15 +15,20 @@ const styles = () => ({
 
 class AddTaskForm extends React.Component {
   render () {
-    const { classes, addTask, handleSubmit } = this.props
+    const { classes, editing, handleSubmit, text, updateTaskText, index, toggleState } = this.props
 
     const onSubmit = (e) => {
       e.preventDefault()
-      handleSubmit(this.input.value)
+      if (text) {
+        updateTaskText(index, this.input.value)
+        toggleState()
+      } else {
+        handleSubmit(this.input.value)
+      }
       e.currentTarget.reset()
     }
 
-    if (addTask) {
+    if (editing) {
       return (
         <form
           className={ classes.root }
@@ -31,8 +36,9 @@ class AddTaskForm extends React.Component {
           <TextField
             id = "add-task-form"
             label = "Add Task"
+            defaultValue = { text }
             inputRef={ ref => this.input = ref }
-            inputProps = {{maxLength: '140'}}
+            inputProps = { { maxLength: '140' } }
           />
         </form>
       )
@@ -45,7 +51,11 @@ class AddTaskForm extends React.Component {
 AddTaskForm.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func,
-  addTask: PropTypes.bool
+  updateTaskText: PropTypes.func,
+  editing: PropTypes.bool,
+  text: PropTypes.string,
+  index: PropTypes.number,
+  toggleState: PropTypes.func
 }
 
 export default withStyles(styles)(AddTaskForm)
