@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Close, Edit } from '@material-ui/icons'
+import Tooltip from '@material-ui/core/Tooltip'
 import AddTaskForm from './AddTaskForm'
 import StatusBar from './StatusBar'
 
@@ -71,12 +72,15 @@ class Task extends React.Component {
           className={ status === 'done' ? `${classes.root} ${classes.done}` : classes.root }
           maxWidth= 'sm'
         >
-          <Close
-            className = {classes.close}
-            onClick = {() => deleteTask(index)}
-          />
+          <Tooltip title = "Delete Task">
+            <Close
+              className = {classes.close}
+              onClick = {() => deleteTask(index)}
+              onMouseOver = {() => console.log('mouse over')}
+            />
+          </Tooltip>
           {this.state.editing ? null : text}
-          {this.state.editing ? null : <Edit className = {classes.edit} onClick = {() => this.toggleState()}/> }
+          {this.state.editing ? null : <Tooltip title = "Edit"><Edit className = {classes.edit} onClick = {() => this.toggleState()}/></Tooltip> }
           <AddTaskForm 
             editing={this.state.editing} 
             handleSubmit = {handleSubmit}
