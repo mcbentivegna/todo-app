@@ -36,10 +36,11 @@ const styles = {
 class Task extends React.Component {
 
   state = {
-    editing: false
+    editing: false,
+    error: false
   }
 
-  toggleState = () => {
+  toggleEditing = () => {
     this.setState ( prevState => {
       return {
         editing: !prevState.editing
@@ -47,9 +48,18 @@ class Task extends React.Component {
     })
   }
 
+  toggleError = () => {
+    this.setState ( prevState => {
+      console.log('test error' + ' ' + prevState.error)
+      return {
+        error: !prevState.error
+      }
+    })
+  }
+
   componentWillMount() {
     if (this.props.newTask){
-      this.toggleState()
+      this.toggleEditing()
     }
   }
 
@@ -72,20 +82,16 @@ class Task extends React.Component {
           className={ status === 'done' ? `${classes.root} ${classes.done}` : classes.root }
           maxWidth= 'sm'
         >
-          <Tooltip title = "Delete Task">
-            <Close
-              className = {classes.close}
-              onClick = {() => deleteTask(index)}
-              onMouseOver = {() => console.log('mouse over')}
-            />
-          </Tooltip>
+          {newTask ? null : <Tooltip title = "Delete Task"><Close className = {classes.close} onClick = {() => deleteTask(index)}/></Tooltip>}
           {this.state.editing ? null : text}
-          {this.state.editing ? null : <Tooltip title = "Edit"><Edit className = {classes.edit} onClick = {() => this.toggleState()}/></Tooltip> }
+          {this.state.editing ? null : <Tooltip title = "Edit"><Edit className = {classes.edit} onClick = {() => this.toggleEditing()}/></Tooltip> }
           <AddTaskForm 
             editing={this.state.editing} 
+            toggleEditing = {this.toggleEditing}
+            error={this.state.error}
+            toggleError={this.toggleError}
             handleSubmit = {handleSubmit}
             updateTaskText = {updateTaskText}
-            toggleState = {this.toggleState}
             index = {index}
             text = {text}></AddTaskForm>
           <StatusBar editing= {this.state.editing} status= {status} index = {index} changeTaskStatus = {changeTaskStatus} />

@@ -14,31 +14,50 @@ const styles = () => ({
 })
 
 class AddTaskForm extends React.Component {
+
   render () {
-    const { classes, editing, handleSubmit, text, updateTaskText, index, toggleState } = this.props
+    const { classes, 
+            editing, 
+            error,
+            toggleError,
+            handleSubmit, 
+            text, 
+            updateTaskText, 
+            index, 
+            toggleEditing } = this.props
 
     const onSubmit = (e) => {
       e.preventDefault()
       if (text) {
         updateTaskText(index, this.input.value)
-        toggleState()
+        toggleEditing()
       } else {
-        handleSubmit(this.input.value)
+          handleSubmit(this.input.value)
       }
       e.currentTarget.reset()
+    }
+
+    const onChange = (e) => {
+      if (this.input.value.length >= 140){
+        console.log('test 140')
+        toggleError()
+      }
     }
 
     if (editing) {
       return (
         <form
           className={ classes.root }
-          onSubmit = {onSubmit}>
+          onSubmit = { onSubmit }
+          onChange = { onChange }>
           <TextField
             id = "add-task-form"
             label = "Add Task"
             defaultValue = { text }
             inputRef={ ref => this.input = ref }
             inputProps = { { maxLength: '140' } }
+            error = { error }
+            helperText = { error ? 'Tasks must 140 characters or less': ''}
           />
         </form>
       )
@@ -53,9 +72,11 @@ AddTaskForm.propTypes = {
   handleSubmit: PropTypes.func,
   updateTaskText: PropTypes.func,
   editing: PropTypes.bool,
+  toggleEditing: PropTypes.func,
+  error: PropTypes.bool,
+  toggleError: PropTypes.func,
   text: PropTypes.string,
-  index: PropTypes.number,
-  toggleState: PropTypes.func
+  index: PropTypes.number  
 }
 
 export default withStyles(styles)(AddTaskForm)

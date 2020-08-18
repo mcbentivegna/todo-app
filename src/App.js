@@ -39,8 +39,6 @@ class App extends React.Component {
     })
   }
 
-
-
   changeTaskStatus = (index, newState) => {
     this.setState ( prevState => {
       const arrayIndex = this.findTaskIndex(prevState, index)
