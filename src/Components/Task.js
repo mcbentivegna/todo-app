@@ -50,7 +50,6 @@ class Task extends React.Component {
 
   toggleError = () => {
     this.setState ( prevState => {
-      console.log('test error' + ' ' + prevState.error)
       return {
         error: !prevState.error
       }

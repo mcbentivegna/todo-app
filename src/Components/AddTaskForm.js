@@ -14,17 +14,18 @@ const styles = () => ({
 })
 
 class AddTaskForm extends React.Component {
-
   render () {
-    const { classes, 
-            editing, 
-            error,
-            toggleError,
-            handleSubmit, 
-            text, 
-            updateTaskText, 
-            index, 
-            toggleEditing } = this.props
+    const {
+      classes,
+      editing,
+      error,
+      toggleError,
+      handleSubmit,
+      text,
+      updateTaskText,
+      index,
+      toggleEditing
+    } = this.props
 
     const onSubmit = (e) => {
       e.preventDefault()
@@ -32,13 +33,13 @@ class AddTaskForm extends React.Component {
         updateTaskText(index, this.input.value)
         toggleEditing()
       } else {
-          handleSubmit(this.input.value)
+        handleSubmit(this.input.value)
       }
       e.currentTarget.reset()
     }
 
     const onChange = (e) => {
-      if (this.input.value.length >= 140){
+      if (this.input.value.length >= 140) {
         toggleError()
       }
     }
@@ -56,7 +57,7 @@ class AddTaskForm extends React.Component {
             inputRef={ ref => this.input = ref }
             inputProps = { { maxLength: '140' } }
             error = { error }
-            helperText = { error ? 'Tasks are limited to 140 characters': ''}
+            helperText = { error ? 'Tasks are limited to 140 characters' : ''}
           />
         </form>
       )
@@ -75,7 +76,7 @@ AddTaskForm.propTypes = {
   error: PropTypes.bool,
   toggleError: PropTypes.func,
   text: PropTypes.string,
-  index: PropTypes.number  
+  index: PropTypes.number
 }
 
 export default withStyles(styles)(AddTaskForm)
