@@ -39,7 +39,6 @@ class AddTaskForm extends React.Component {
 
     const onChange = (e) => {
       if (this.input.value.length >= 140){
-        console.log('test 140')
         toggleError()
       }
     }
@@ -57,7 +56,7 @@ class AddTaskForm extends React.Component {
             inputRef={ ref => this.input = ref }
             inputProps = { { maxLength: '140' } }
             error = { error }
-            helperText = { error ? 'Tasks must 140 characters or less': ''}
+            helperText = { error ? 'Tasks are limited to 140 characters': ''}
           />
         </form>
       )
