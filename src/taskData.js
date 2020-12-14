@@ -28,6 +28,18 @@ const taskData = [
     priority: 5,
     status: 'done',
     index: 5
+  },
+  {
+    text: 'Return library books.',
+    priority: 6,
+    status: 'new',
+    index: 6
+  },
+  {
+    text: 'Install shelves.',
+    priority: 7,
+    status: 'new',
+    index: 7
   }
 ]
 
