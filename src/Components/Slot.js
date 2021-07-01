@@ -42,7 +42,7 @@ const slotTarget = {
   drop (props, monitor, component) {
     const item = monitor.getItem()
     console.log('index of slot ' + props.index)
-    props.changeTaskPriority(item.index, props.index - item.priority)
+    props.changeTaskPriority(item.index, props.index - item.priority, props.index)
   },
   canDrop (props, monitor) {
     const minimallyMoved = isMinimallyMoved((monitor.getDifferenceFromInitialOffset()))

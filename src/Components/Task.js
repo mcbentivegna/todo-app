@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { Close, Edit, ArrowUpward, ArrowDownward } from '@material-ui/icons'
+import { Close, Edit} from '@material-ui/icons'
 import { DragSource } from 'react-dnd'
 import Tooltip from '@material-ui/core/Tooltip'
 import AddTaskForm from './AddTaskForm'
@@ -150,8 +150,6 @@ class Task extends React.Component {
           {newTask ? null : <Tooltip title = "Delete Task"><Close className = {classes.close} onClick = {() => deleteTask(index)}/></Tooltip>}
           {this.state.editing ? null : text}
           {this.state.editing ? null : <Tooltip title = "Edit"><Edit className = {classes.edit} onClick = {() => this.toggleEditing()}/></Tooltip> }
-          {newTask ? null : <Tooltip title = "Move Task Up"><ArrowUpward className = {classes.upArrow} onClick = {() => changeTaskPriority(index,-2)}/></Tooltip> }
-          {newTask ? null : <Tooltip title = "Move Task Down"><ArrowDownward className = {classes.downArrow} onClick = {() => changeTaskPriority(index,1)}/></Tooltip> }
           <AddTaskForm 
             editing={this.state.editing} 
             toggleEditing = {this.toggleEditing}

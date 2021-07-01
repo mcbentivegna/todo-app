@@ -3,43 +3,43 @@ const taskData = [
     text: 'Pick up 1 gallon milk.',
     priority: 1,
     status: 'new',
-    index: 1
+    index: 100
   },
   {
     text: 'Schedule dentist appointments for next month.',
     priority: 2,
     status: 'inProgress',
-    index: 2
+    index: 200
   },
   {
     text: 'Call Aunt Hilda.',
     priority: 3,
     status: 'new',
-    index: 3
+    index: 300
   },
   {
     text: 'Fix broken cabinet.',
     priority: 4,
     status: 'done',
-    index: 4
+    index: 400
   },
   {
     text: 'Follow up with electrician.',
     priority: 5,
     status: 'done',
-    index: 5
+    index: 500
   },
   {
     text: 'Return library books.',
     priority: 6,
     status: 'new',
-    index: 6
+    index: 600
   },
   {
     text: 'Install shelves.',
     priority: 7,
     status: 'new',
-    index: 7
+    index: 700
   }
 ]
 

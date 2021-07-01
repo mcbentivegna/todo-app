@@ -55,33 +55,41 @@ class App extends React.Component {
     })
   }
 
-    changeTaskPriority = (index, change) => {
+
+    changeTaskPriority = (index, slotIndex) => {
     this.setState ( prevState => {
       //establish basic info about the task you want to move
       const taskArrayIndex = this.findTaskIndex(prevState, index)
       const taskPriority = prevState.taskData[taskArrayIndex].priority
-      console.log('change '+ change)
-      console.log('old priority ' + prevState.taskData[taskArrayIndex].priority)
-      console.log('new priority ' + (prevState.taskData[taskArrayIndex].priority + change))
 
       //create clone of prevState,which will be used to assign new state.
       let newTaskData = prevState.taskData
-
-      //find tasks with priorities in range of change.
-      const swapTasks = prevState.taskData.filter( t => {
-        let swapBoolean
-        change<0 
-        ? swapBoolean = (t.priority >= (taskPriority + change) && t.priority< taskPriority) 
-        : swapBoolean = (t.priority <= (taskPriority + change) && t.priority> taskPriority)
-        return swapBoolean
-      })
-      //Move tasks up or down in priority
-      swapTasks.map( (t) => {
-        newTaskData[this.findTaskIndex(prevState, t.index)].priority = t.priority + (change<0 ? + 1 : -1)
-      })
       
-      //assign moved task to its new priority
-      newTaskData[taskArrayIndex].priority = prevState.taskData[taskArrayIndex].priority + change
+
+      if (slotIndex == 1) {
+        
+        newTaskData.map( t => t.priority < newTaskData[taskArrayIndex].priority ? t.priority = t.priority +1 : null)
+        newTaskData[taskArrayIndex].priority = 1
+      
+      }
+      else if (slotIndex == newTaskData.length+1) {
+      
+        newTaskData.map( t => t.priority > newTaskData[taskArrayIndex].priority ? t.priority = t.priority - 1 : null)
+        newTaskData[taskArrayIndex].priority = newTaskData.length
+      
+      }
+      else if (slotIndex <= taskPriority) {
+
+        newTaskData.map( t => t.priority < newTaskData[taskArrayIndex].priority && t.priority >= slotIndex ? t.priority = t.priority + 1 : null)
+        newTaskData[taskArrayIndex].priority = slotIndex
+      
+      }
+      else if (slotIndex > taskPriority) {
+
+        newTaskData.map( t => t.priority > newTaskData[taskArrayIndex].priority && t.priority < slotIndex ? t.priority = t.priority - 1 : null)
+        newTaskData[taskArrayIndex].priority = slotIndex-1
+      
+      }
       
       return {
         taskData: newTaskData
@@ -97,13 +105,6 @@ class App extends React.Component {
         isAnythingDragging: index
       }
     })
-
-    /*this.setState ( prevState =>{
-        let newState = !prevState.isAnythingDragging
-      return {
-        isAnythingDragging: newState
-      }
-    })*/
   }
 
   changeTaskStatus = (index, newState) => {
@@ -121,10 +122,17 @@ class App extends React.Component {
   deleteTask = (index) => {  
     this.setState ( prevState => {
       let newTaskData = prevState.taskData
+      const taskArrayIndex = this.findTaskIndex(prevState, index)
+
+      //update priority
+      newTaskData.map(t => t.priority > prevState.taskData[taskArrayIndex].priority ? t.priority = t.priority - 1 : null)
+
+      //delete task
       newTaskData = newTaskData.filter( (task) => task.index !== index )
-    return {
-        taskData: newTaskData
-      }
+      
+      return {
+          taskData: newTaskData
+        }
     })
   }
 
@@ -157,10 +165,10 @@ class App extends React.Component {
               updateTaskText = {this.updateTaskText}
               toggleisAnythingDragging = {this.toggleisAnythingDragging}
             />
-            {this.state.isAnythingDragging>0 && task.index != this.state.isAnythingDragging && task.index != this.state.isAnythingDragging -1 
+            {this.state.isAnythingDragging>0 //&& task.index != this.state.isAnythingDragging && task.index != this.state.isAnythingDragging -1 
             ? <Slot 
-                key = {task.priority < this.state.isAnythingDragging ? task.priority + 1 : task.priority -1} 
-                index = {task.priority < this.state.isAnythingDragging ? task.priority + 1 : task.priority -1} 
+                key = {task.priority + 1} 
+                index = {task.priority + 1} 
                 changeTaskPriority = {this.changeTaskPriority}>
               </Slot> 
             : null}
